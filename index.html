@@ -2,9 +2,70 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<link rel="stylesheet" type="text/javascript" href="assets/javascript/game.js">
+	<title>Psychic Game</title>
 </head>
 <body>
+
+<h1><strongh>The Psychic Game</strongT></h1>
+	
+	<div id=game>
+	<p>Guess what letter I'm thinking of</p>
+	<p>Wins: </p>
+	<p>Losses: </p>
+	<p>Guesses Left: </p>
+	<p>Your Guesses So Far:</p>
+
+	<script type="text/javascript">
+		var letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+
+	var wins= 0;
+	var losses= 0;
+	var guessesleft= 10	
+
+	var computerchoice = letters[Math.floor(Math.random()*letters.length)];
+
+
+	var random= Math.random()
+
+	document.onkeyup = function() {
+		computerchoice = letters[Math.floor(Math.random()*(letters.length))]
+		console.log(computerchoice)
+		var userchoice = String.fromCharCode(event.keyCode).
+			toLowerCase();
+		console.log(userchoice);
+
+		if (userchoice == computerchoice) {
+			console.log("You win!");
+			wins++
+			guessesleft = 10
+			 // window.clearInterval(computerchoice);
+		} else {
+			guessesleft--
+		}
+
+
+		if (guessesleft==0) {
+			console.log("You lose!");
+			losses++;
+			guessesleft =10
+		}
+
+		var html = "<p>Guess what letter I'm thinking of</p>" +
+		"<p>Wins: " + wins + "</p>" +
+		"<p>Losses: " + losses + "</p>" +
+		"<p>Guesses Left: " + guessesleft + "</p>" +
+		"<p>Your Guesses So Far: " + userchoice + "</p>"
+
+		document.querySelector('#game').innerHTML = html;
+
+		// document.querySelector("#textToShow").innerHTML = word
+
+	}
+
+	</script>
+
+</div>
 	
 </body>
 </html>
