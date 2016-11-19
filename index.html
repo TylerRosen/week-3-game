@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/javascript" href="assets/javascript/game.js">
 	<title>Psychic Game</title>
 </head>
 <body>
@@ -21,16 +20,23 @@
 
 	var wins= 0;
 	var losses= 0;
-	var guessesleft= 10	
+	var guessesleft= 10;
+	var guesses= [];
 
 	var computerchoice = letters[Math.floor(Math.random()*letters.length)];
+	var correctletter = letters[computerchoice]
 
 
 	var random= Math.random()
 
 	document.onkeyup = function() {
-		computerchoice = letters[Math.floor(Math.random()*(letters.length))]
+		var key = event.key;
+		guesses.push(key);
+
+		correctletter = computerchoice[Math.floor(Math.random()*(letters.length))]
 		console.log(computerchoice)
+
+
 		var userchoice = String.fromCharCode(event.keyCode).
 			toLowerCase();
 		console.log(userchoice);
@@ -39,9 +45,12 @@
 			console.log("You win!");
 			wins++
 			guessesleft = 10
-			 // window.clearInterval(computerchoice);
+			guesses = []
+			computerchoice = letters[Math.floor(Math.random()*letters.length)];
+
 		} else {
 			guessesleft--
+
 		}
 
 
@@ -49,17 +58,17 @@
 			console.log("You lose!");
 			losses++;
 			guessesleft =10
+			guesses = [];
+			computerchoice = letters[Math.floor(Math.random()*(letters.length))]
 		}
 
 		var html = "<p>Guess what letter I'm thinking of</p>" +
 		"<p>Wins: " + wins + "</p>" +
 		"<p>Losses: " + losses + "</p>" +
 		"<p>Guesses Left: " + guessesleft + "</p>" +
-		"<p>Your Guesses So Far: " + userchoice + "</p>"
+		"<p>Your Guesses So Far: " + guesses + "</p>"
 
 		document.querySelector('#game').innerHTML = html;
-
-		// document.querySelector("#textToShow").innerHTML = word
 
 	}
 
